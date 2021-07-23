@@ -5,16 +5,25 @@ class Queue
     end
 
     def enqueue(ele)
-        @queue.unshift(ele)
+        queue.unshift(ele)
+        self
     end
 
     def dequeue
-        @queue.pop
+        queue.pop
     end
 
     def peek
-        @queue[-1]
+        queue[-1]
     end
+
+    def inspect
+        "#Queue:#{self.object_id}"
+    end
+
+    private
+    
+    attr_reader :queue
 
 end
 
@@ -25,15 +34,24 @@ end
 #     end
 
 #     def enqueue(ele)
-#         @queue.push(ele)
+#         queue.push(ele)
+#         self
 #     end
 
 #     def dequeue
-#         @queue.shift
+#         queue.shift
 #     end
 
 #     def peek
-#         @queue[0]
+#         queue[0]
 #     end
+
+#     def inspect
+#         "#Queue:#{self.object_id}"
+#     end
+
+#     private
+    
+#     attr_reader :queue
 
 # end
