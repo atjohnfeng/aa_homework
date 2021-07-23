@@ -17,6 +17,10 @@ class Stack
         stack[-1]
     end
 
+    def inspect
+        "#Stack:#{self.object_id}"
+    end
+
     private
 
     attr_reader :stack
