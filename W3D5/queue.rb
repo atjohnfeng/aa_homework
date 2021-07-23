@@ -17,3 +17,23 @@ class Queue
     end
 
 end
+
+# class Queue
+
+#     def initialize
+#         @queue = Array.new
+#     end
+
+#     def enqueue(ele)
+#         @queue.push(ele)
+#     end
+
+#     def dequeue
+#         @queue.shift
+#     end
+
+#     def peek
+#         @queue[0]
+#     end
+
+# end
