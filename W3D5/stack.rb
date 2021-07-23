@@ -22,7 +22,7 @@ class Stack
     end
 
     private
-
+    
     attr_reader :stack
 
 end

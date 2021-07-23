@@ -40,7 +40,7 @@ class Map
     end
 
     private
-
+    
     attr_reader :map
 
 end
