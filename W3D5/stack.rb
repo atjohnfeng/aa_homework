@@ -5,15 +5,20 @@ class Stack
     end
 
     def push(ele)
-        @stack.push(ele)
+        stack.push(ele)
+        self
     end
 
     def pop
-        @stack.pop
+        stack.pop
     end
 
     def peek
-        @stack[-1]
+        stack[-1]
     end
+
+    private
+
+    attr_reader :stack
 
 end
