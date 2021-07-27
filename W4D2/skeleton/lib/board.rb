@@ -2,10 +2,18 @@ class Board
   attr_accessor :cups
 
   def initialize(name1, name2)
+    @player_1 = name1
+    @player_2 = name2
+    @cups = Array.new(14) { Array.new }
+    place_stones
   end
 
   def place_stones
-    # helper method to #initialize every non-store cup with four stones each
+    (0..12).each do |i|
+      if i != 6
+        4.times { @cups[i] << :stone }
+      end
+    end
   end
 
   def valid_move?(start_pos)
@@ -27,6 +35,7 @@ class Board
   end
 
   def one_side_empty?
+    @board[1..6].all? { |cup| cup.count == 0 } || @board[7..12].all? { |cup| cup.count == 0 }
   end
 
   def winner
