@@ -1,6 +1,8 @@
 class Board
   attr_accessor :cups
 
+  PLAYER_CUPS = [6, 13]
+
   def initialize(name1, name2)
     @player_1 = name1
     @player_2 = name2
@@ -27,8 +29,26 @@ class Board
       @cups[start_pos] = []
       ending_cup_idx = start_pos
       (1..stones).each do |i|
-        @cups[start_pos+i] << :stone
-        ending_cup_idx = start_pos+i
+        if !PLAYER_CUPS.include?(i)
+          @cups[start_pos+i] << :stone
+          ending_cup_idx = start_pos+i
+        elsif current_player_name == player_1
+          if i == 6
+            @cups[start_pos+i] << :stone
+            ending_cup_idx = start_pos+i
+          elsif i == 13
+            @cups[start_pos+stones+1] << :stone
+            ending_cup_idx = start_pos+stones+1
+          end 
+        elsif current_player_name == player_2
+          if i == 13
+            @cups[start_pos+i] << :stone
+            ending_cup_idx = start_pos+i
+          elsif i == 6
+            @cups[start_pos+stones+1] << :stone
+            ending_cup_idx = start_pos+stones+1
+          end
+        end
       end
     end
       next_turn(ending_cup_idx)
@@ -36,7 +56,12 @@ class Board
   end
 
   def next_turn(ending_cup_idx)
-    # helper method to determine whether #make_move returns :switch, :prompt, or ending_cup_idx
+    if ending_cup_idx == 6 || ending_cup_idx == 13
+      :prompt
+    elsif @cups[ending_cup_idx].length == 1
+      :switch
+    end
+    ending_cup_idx
   end
 
   def render
@@ -52,6 +77,11 @@ class Board
   end
 
   def winner
-    one_side_empty?
+    return :draw if @cups[6].length == @cups[13].length
+    if @cups[6].length > @cups[13].length
+      return @player_1
+    else
+      return @player_2
+    end
   end
 end
