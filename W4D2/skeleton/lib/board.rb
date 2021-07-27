@@ -1,8 +1,6 @@
 class Board
   attr_accessor :cups
 
-  PLAYER_CUPS = [6, 13]
-
   def initialize(name1, name2)
     @player_1 = name1
     @player_2 = name2
@@ -25,41 +23,39 @@ class Board
 
   def make_move(start_pos, current_player_name)
     if valid_move?(start_pos)
-      stones = @cups[start_pos].length
+      stone_count = @cups[start_pos].length
       @cups[start_pos] = []
       ending_cup_idx = start_pos
-      (1..stones).each do |i|
-        if !PLAYER_CUPS.include?(i)
-          @cups[start_pos+i] << :stone
-          ending_cup_idx = start_pos+i
-        elsif current_player_name == player_1
-          if i == 6
-            @cups[start_pos+i] << :stone
-            ending_cup_idx = start_pos+i
-          elsif i == 13
-            @cups[start_pos+stones+1] << :stone
-            ending_cup_idx = start_pos+stones+1
-          end 
-        elsif current_player_name == player_2
-          if i == 13
-            @cups[start_pos+i] << :stone
-            ending_cup_idx = start_pos+i
-          elsif i == 6
-            @cups[start_pos+stones+1] << :stone
-            ending_cup_idx = start_pos+stones+1
-          end
-        end
+    end
+    
+    ending_cup_idx = start_pos
+    until stone_count == 0
+      ending_cup_idx += 1
+      ending_cup_idx = 0 if ending_cup_idx >= 14
+      if ending_cup_idx == 6 && current_player_name == @player_1
+        @cups[ending_cup_idx] << :stone
+        stone_count -= 1
+      elsif ending_cup_idx == 6 && current_player_name == @player_2
+        stone_count += 1
+      elsif ending_cup_idx == 13 && current_player_name == @player_2
+        @cups[ending_cup_idx] << :stone
+        stone_count -= 1
+      elsif ending_cup_idx == 13 && current_player_name == @player_1
+        stone_count += 1
+      else
+        @cups[ending_cup_idx] << :stone
+        stone_count -= 1
       end
     end
-      next_turn(ending_cup_idx)
-      render
+    next_turn(ending_cup_idx)
+    render
   end
 
   def next_turn(ending_cup_idx)
     if ending_cup_idx == 6 || ending_cup_idx == 13
-      :prompt
+      return :prompt
     elsif @cups[ending_cup_idx].length == 1
-      :switch
+      return :switch
     end
     ending_cup_idx
   end
