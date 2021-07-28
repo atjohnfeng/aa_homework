@@ -19,19 +19,23 @@ class Simon
 
   def take_turn
     show_sequence
-    require_sequence
     while !game_over
-      round_success_message
-      sequence_length += 1
+      if require_sequence
+        round_success_message
+        self.sequence_length += 1
+      else
+        game_over_message
+      end
     end
   end
 
   def show_sequence
     add_random_color
+    puts seq
   end
 
   def require_sequence
-    
+    false
   end
 
   def add_random_color
@@ -39,14 +43,17 @@ class Simon
   end
 
   def round_success_message
-
+    puts 'Round Success. Difficulty increasing!'
+    game_over = true
   end
 
   def game_over_message
-
+    puts 'Round Failed. Game Over.'
   end
 
   def reset_game
-
+    @sequence_length = 1
+    @game_over = false
+    @seq = []
   end
 end
