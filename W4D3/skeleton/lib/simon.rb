@@ -19,23 +19,32 @@ class Simon
 
   def take_turn
     show_sequence
+    require_sequence
     while !game_over
-      if require_sequence
-        round_success_message
-        self.sequence_length += 1
-      else
-        game_over_message
-      end
+      round_success_message
+      self.sequence_length += 1
     end
   end
 
   def show_sequence
     add_random_color
-    puts seq
+    @seq.each do |color|
+      puts color
+      sleep(1)
+      system("clear")
+    end
   end
 
   def require_sequence
+    puts 'REPEAT THE SEQUENCE HUMAN USING R/B/G/Y.'
+    @seq.each do |color|
+      user_input = gets.chomp
+      if color[0] != user_input.downcase
+        @game_over = true
+        break
+      end
     false
+    end
   end
 
   def add_random_color
@@ -43,12 +52,12 @@ class Simon
   end
 
   def round_success_message
-    puts 'Round Success. Difficulty increasing!'
+    puts 'GOOD JOB HUMAN. YOUR EXTERMINATION HAS BEEN DELAYED ANOTHER ROUND.'
     game_over = true
   end
 
   def game_over_message
-    puts 'Round Failed. Game Over.'
+    puts "PREPARE FOR EXTERMINATION. YOU SURVIVED #{@sequence_length-1} ROUNDS."
   end
 
   def reset_game
@@ -56,4 +65,8 @@ class Simon
     @game_over = false
     @seq = []
   end
+
 end
+
+start_game = Simon.new
+start_game.play
