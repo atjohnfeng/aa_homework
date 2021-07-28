@@ -27,6 +27,7 @@ class Simon
   end
 
   def show_sequence
+    system("clear")
     add_random_color
     @seq.each do |color|
       puts color
