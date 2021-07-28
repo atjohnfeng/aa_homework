@@ -15,12 +15,22 @@ class Simon
     end
     game_over_message
     reset_game
+    if play_again
+      play
+    end
+  end
+
+  def play_again
+    puts "PLAY AGAIN, HUMAN? [Y/N]"
+    play_again = gets.chomp
+    return true if play_again == 'y' || play_again == 'Y'
+    false
   end
 
   def take_turn
     show_sequence
     require_sequence
-    while !game_over
+    unless game_over
       round_success_message
       self.sequence_length += 1
     end
@@ -30,21 +40,20 @@ class Simon
     system("clear")
     add_random_color
     @seq.each do |color|
-      puts color
+      puts color.upcase
       sleep(1)
       system("clear")
     end
   end
 
   def require_sequence
-    puts 'REPEAT THE SEQUENCE HUMAN USING R/B/G/Y.'
+    puts 'REPEAT THE SEQUENCE HUMAN. [R/B/G/Y]'
     @seq.each do |color|
       user_input = gets.chomp
       if color[0] != user_input.downcase
         @game_over = true
         break
       end
-    false
     end
   end
 
@@ -54,7 +63,6 @@ class Simon
 
   def round_success_message
     puts 'GOOD JOB HUMAN. YOUR EXTERMINATION HAS BEEN DELAYED ANOTHER ROUND.'
-    game_over = true
   end
 
   def game_over_message
