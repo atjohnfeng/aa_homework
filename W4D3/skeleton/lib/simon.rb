@@ -1,4 +1,6 @@
 class Simon
+  require 'colorize'
+
   COLORS = %w(red blue green yellow)
 
   attr_accessor :sequence_length, :game_over, :seq
@@ -23,7 +25,7 @@ class Simon
   def play_again
     puts "PLAY AGAIN, HUMAN? [Y/N]"
     play_again = gets.chomp
-    return true if play_again == 'y' || play_again == 'Y'
+    return true if ['y', 'Y'].include?(play_again)
     false
   end
 
@@ -40,9 +42,18 @@ class Simon
     system("clear")
     add_random_color
     @seq.each do |color|
-      puts color.upcase
-      sleep(1)
+      if color == "red"
+        puts color.upcase.red
+      elsif color == "blue"
+        puts color.upcase.blue
+      elsif color == "green"
+        puts color.upcase.green
+      else
+        puts color.upcase.yellow        
+      end
+      sleep(0.5)
       system("clear")
+      sleep(0.25)
     end
   end
 
