@@ -3,8 +3,8 @@ require 'dessert'
 
 describe Dessert do
 
-  subject(:dessert) { Dessert.new('Ice Cream', 1, 'chef') }
-  let(:chef) { double("chef") }
+  let(:chef) { double("chef", name: "Gordan Ramsay") }
+  subject(:dessert) { Dessert.new('Ice Cream', 1, chef) }
 
   describe "#initialize" do
 
@@ -41,9 +41,13 @@ describe Dessert do
     it "shuffles the ingredient array" do
       dessert.add_ingredient('ice')
       dessert.add_ingredient('cream')
+      dessert.add_ingredient('sugar')
+      dessert.add_ingredient('spice')
+      dessert.add_ingredient('everything nice')
+      original_order = dessert.ingredients.dup
       dessert.mix!
 
-      expect(dessert).to receive(:shuffle!).with(ingredients)
+      expect(original_order).not_to eq(dessert.ingredients)
     end
 
   end
@@ -66,13 +70,19 @@ describe Dessert do
 
   describe "#serve" do
 
-    it "contains the titleized version of the chef's name"
-    
+    it "contains the titleized version of the chef's name" do
+      allow(chef).to receive(:titleize).and_return("Chef Gordon Ramsey the Great Baker")
+      expect(dessert.serve).to eq("Chef Gordon Ramsey the Great Baker has made 1 Ice Creams!")
+    end
+
   end
 
   describe "#make_more" do
 
-    it "calls bake on the dessert's chef with the dessert passed in"
+    it "calls bake on the dessert's chef with the dessert passed in" do
+      expect(chef).to receive(:bake).with(dessert)
+      dessert.make_more
+    end
 
   end
 
