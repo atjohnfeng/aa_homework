@@ -1,6 +1,24 @@
-class Octopus
+# Big O-ctopus Homework
 
-    FISHIES = [
+def sluggish_octopus(fishies)
+    sorted = false
+    while !sorted
+        sorted = true
+        fishies
+    end
+end
+
+def dominant_octopus(fishies)
+
+end
+
+def clever_octopus(fishies)
+    longest_fish = fishies[0]
+    fishies.each_with_index { |fish,i| longest_fish = fishies[i] if fish.length > longest_fish.length }
+    longest_fish
+end
+
+fishies = [
         'fish', 
         'fiiish', 
         'fiiiiish', 
@@ -10,20 +28,4 @@ class Octopus
         'fsh', 
         'fiiiissshhhhhh']
 
-    def self.sluggish_octopus
-        
-    end
-
-    def self.dominant_octopus
-
-    end
-
-    def self.clever_octopus
-        longest_fish = FISHIES[0]
-        FISHIES.each_with_index { |fish,i| longest_fish = FISHIES[i] if fish.length > longest_fish.length }
-        longest_fish
-    end
-
-end
-
-p Octopus.clever_octopus
+p clever_octopus(fishies)
