@@ -21,7 +21,7 @@ class LRUCache
     end
 
     def show
-      @cache[-1]
+      @cache
     end
 
     private
