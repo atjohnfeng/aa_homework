@@ -71,4 +71,12 @@ class Play
     SQL
   end
 
+  # Still to Implement
+  # Playwright::all
+  # Playwright::find_by_name(name)
+  # Playwright#new (this is the initialize method)
+  # Playwright#create
+  # Playwright#update
+  # Playwright#get_plays (returns all plays written by playwright)
+
 end
