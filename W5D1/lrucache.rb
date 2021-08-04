@@ -9,11 +9,11 @@ class LRUCache
     end
 
     def add(el)
-      if count == @size && !@cache.include?(el)
-        @cache.unshift(el)
-        @cache.push(el)
-      elsif @cache.include?(el)
+      if @cache.include?(el)
         @cache.delete(el)
+        @cache.push(el)
+      elsif count >= @size
+        @cache.shift
         @cache.push(el)
       else
         @cache.push(el)
@@ -23,9 +23,6 @@ class LRUCache
     def show
       @cache
     end
-
-    private
-    # helper methods go here!
 
 end
 
