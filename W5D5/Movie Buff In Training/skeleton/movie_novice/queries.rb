@@ -59,7 +59,7 @@ def pulp_fiction_actors
   # practice using joins
   # display the id and name of all actors in the movie Pulp Fiction
   # hint: use 'select', 'joins', 'where'
-
+  Actor.select(:id, :name).joins(:movies).where('title = \'Pulp Fiction\'')
 end
 
 def uma_movies
@@ -67,5 +67,5 @@ def uma_movies
   # display the id, title, and year of movies Uma Thurman has acted in
   # order them by ascending year
   # hint: use 'select', 'joins', 'where', and 'order'
-
+  Movie.select(:id, :title, :yr).joins(:actors).where('name = \'Uma Thurman\'').order('yr ASC')
 end
