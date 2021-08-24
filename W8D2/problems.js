@@ -9,9 +9,24 @@
 
 // madLib('make', 'best', 'guac');
 
-function isSubstring(searchString, subString) {
-    console.log(searchString.includes(subString));
+// function isSubstring(searchString, subString) {
+//     console.log(searchString.includes(subString));
+// }
+
+// isSubstring("hello world", "world");
+// isSubstring("hello world", "olleh");
+
+function fizzBuzz(array) {
+
+    let fizzy = [];
+
+    for (let i = 0; i < array.length; i++) {
+        if ((array[i] % 3 === 0 || array[i] % 5 === 0) && !(array[i] % 3 === 0 && array[i] % 5 === 0)) {
+            fizzy.push(array[i]);
+        }
+    }
+
+    console.log(fizzy);
 }
 
-isSubstring("hello world", "world");
-isSubstring("hello world", "olleh");
+fizzBuzz([1,2,3,4,5,15]);
